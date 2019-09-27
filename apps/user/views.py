@@ -19,7 +19,7 @@ def account_edit_view(request):
             try:
                 _handle_update_account_info(request.user, request.POST)
                 template_dict['update_info_message'] = 'Account info updated'
-            except FormInputError, e:
+            except FormInputError as e:
                 template_dict['update_info_error'] = str(e)
         elif 'changePassword' in request.POST:
             try:
@@ -28,7 +28,7 @@ def account_edit_view(request):
                 # current one so the user doesn't have to log in again.
                 update_session_auth_hash(request, request.user)
                 template_dict['change_password_message'] = 'Password changed'
-            except FormInputError, e:
+            except FormInputError as e:
                 template_dict['change_password_error'] = str(e)
         else:
             return HttpResponseBadRequest('Unknown account edit type')
@@ -50,7 +50,7 @@ def account_create_view(request):
                 user = _handle_create_account(request.POST)
                 login(request, user)
                 return redirect('resume')
-            except FormInputError, e:
+            except FormInputError as e:
                 template_dict['error'] = str(e)
     else:
         form = CreateAccountForm()

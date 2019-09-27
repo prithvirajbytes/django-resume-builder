@@ -1,6 +1,6 @@
 from django import forms
 
-from models import ResumeItem
+from .models import ResumeItem
 
 
 class ResumeItemForm(forms.ModelForm):

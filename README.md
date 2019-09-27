@@ -2,7 +2,7 @@
 This is the base project for the SteamaCo Django resume builder assessment.
 
 ## Setup (Unix)
-- Install `python` (version 2), `pip`, and `virtualenv` for your platform.
+- Install `python` (version 3), `pip`, and `virtualenv` for your platform.
 - Clone this repository.
 - Create a virtual environment in the repository's base directory. `env` has already been added to the `.gitignore`.
 - Install the dependencies in `requirements.txt`.
