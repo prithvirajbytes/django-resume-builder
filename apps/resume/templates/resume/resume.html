@@ -47,10 +47,25 @@ Template for viewing a resume.
       margin-top: 24px;
       margin-bottom: 24px;
     }
+
+    span.badge {
+      background-color: white;
+      border: 1px solid black;
+      color: rgb(51, 51, 51);
+      margin-bottom: 8px;
+    }
+
+    h1.resume-title {
+      margin-top: 10px;
+    }
   </style>
 {% endblock %}
 
 {% block content %}
+  <div class="container content-section resume-container">
+    <h1 class="resume-title">Resume: {{ resume.name }}</h1>
+  </div>
+
   <div class="container content-section resume-container">
     <div class="header-center-container">
       <div class="header-container">
@@ -64,11 +79,16 @@ Template for viewing a resume.
         <h3>{{ resume_item.title }}</h3>
         <h4>{{ resume_item.company }}</h4>
         <h4>{{ resume_item.start_date | date:"M Y"}} - {% if resume_item.end_date %}{{ resume_item.end_date | date:"M Y"}}{% else %}Present{% endif %}</h4>
+        {% if resume_item.tags %}
+          {% for tag in resume_item.tag_list %}
+            <span class="badge">{{ tag }}</span>
+          {% endfor %}
+        {% endif %}
         {% if resume_item.description %}<p>{{ resume_item.description }}</p>{% endif %}
-        <a class="btn btn-primary" href="/resume/item/edit/{{ resume_item.id }}/">Edit</a>
+        <a class="btn btn-primary" href="/resumes/{{ resume.id }}/edit-item/{{ resume_item.id }}/">Edit</a>
       </section>
     {% endfor %}
 
-    <a class="btn btn-success" href="/resume/item/create/">Add New Item</a>
+    <a class="btn btn-success" href="/resumes/{{ resume.id }}/create-item/">Add New Item</a>
   </div>
 {% endblock %}

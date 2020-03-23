@@ -1,13 +1,19 @@
-
-
 {% extends "base_logged_in.html" %}
+
+{% load static %}
 
 {% comment %}
 Base form template for creating and editing resume items.
 {% endcomment %}
 
+{% block scripts %}
+  <script src="{% static "bootstrap-tags-input/bootstrap-tagsinput.min.js" %}"></script>
+{% endblock %}
+
 {% block styles %}
   {{ block.super }}
+
+  <link rel="stylesheet" href="{% static "bootstrap-tags-input/bootstrap-tagsinput.css" %}">
 
   <style>
     div.resume-item-form-container {
@@ -20,6 +26,18 @@ Base form template for creating and editing resume items.
 
     textarea#inputDescription {
       height: 120px;
+    }
+
+    span.tag.label {
+      background-color: white;
+      border: 1px solid black;
+      color: rgb(51, 51, 51);
+      font-size: 13px;
+      font-weight: normal;
+    }
+
+    span.tag.label > span[data-role=remove] {
+      font-weight: bold;
     }
   </style>
 {% endblock %}
@@ -87,6 +105,21 @@ Base form template for creating and editing resume items.
 
       <div class="row">
         <div class="col-sm-12">
+          {{ form.tag.errors }}
+          <div class="form-group">
+            <label for="inputTags" class="col-sm-1 control-label non-required">Tags</label>
+            <div class="col-sm-11">
+              <input type="text" name="tags" id="inputTags"
+                     required
+                     class="form-control" aria-label="Tags" data-role="tagsinput"
+                     {% if form.tags.value %}value="{{ form.tags.value }}"{% endif %}>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
           {{ form.description.errors }}
           <div class="form-group">
             <label for="inputDescription" class="col-sm-1 control-label non-required">Description</label>
@@ -111,7 +144,7 @@ Base form template for creating and editing resume items.
               <button type="submit" class="btn btn-primary">
                 {% block resume_item_submit_button_text %}{% endblock %}
               </button>
-              <a class="btn btn-default" href="/resume/">Back</a>
+              <a class="btn btn-default" href="/resumes/{{ resume.id }}/">Back</a>
 
               {% block resume_item_additional_buttons %}{% endblock %}
             </div>

@@ -27,16 +27,31 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 
-    path(r'', RedirectView.as_view(pattern_name='resume')),
+    path(r'', RedirectView.as_view(pattern_name='resumes')),
 
-    path(r'resume/', resume_views.resume_view, name='resume'),
+    path(r'resumes/', resume_views.resume_list_view, name='resumes'),
     path(
-        r'resume/item/edit/<int:resume_item_id>/',
+        r'resumes/<int:resume_id>/',
+        resume_views.resume_view,
+        name='resume-view'
+    ),
+    path(
+        r'create-resume/',
+        resume_views.resume_create_view,
+        name='resume-create'
+    ),
+    path(
+        r'resumes/<int:resume_id>/rename/',
+        resume_views.resume_rename_view,
+        name='resume-rename'
+    ),
+    path(
+        r'resumes/<int:resume_id>/edit-item/<int:resume_item_id>/',
         resume_views.resume_item_edit_view,
         name='resume-item-edit'
     ),
     path(
-        r'resume/item/create/',
+        r'resumes/<int:resume_id>/create-item/',
         resume_views.resume_item_create_view,
         name='resume-item-create'
     ),
